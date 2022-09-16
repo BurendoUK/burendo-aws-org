@@ -18,3 +18,9 @@ resource "aws_organizations_account" "burendo_production" {
   tags      = merge(local.tags, { Name = "burendo-production" })
   parent_id = aws_organizations_organizational_unit.infrastructure.id
 }
+
+resource "aws_organizations_account" "burendo" {
+  name  = "Burendo"
+  email = "admin@burendo.com"
+  tags  = merge(local.tags, { Name = "Burendo" })
+}
