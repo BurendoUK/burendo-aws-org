@@ -31,7 +31,7 @@ jobs:
           role-skip-session-tagging: true
           aws-access-key-id: ${{ secrets.ACTIONS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.ACTIONS_SECRET_ACCESS_KEY }}
-          role-to-assume: ${{ secrets.AWS_GHA_ROLE }}
+          role-to-assume: ${{ secrets.AWS_GHA_ROLE_MGMT }}
           role-duration-seconds: 900
           role-session-name: ${{ github.run_id }}-${{ github.run_number }}
           aws-region: eu-west-2
@@ -40,10 +40,11 @@ jobs:
         id: bootstrap
         run: |
           python bootstrap.py
+          sed -i "s/Administrator/ci/" variables.tf
         working-directory: .
         env:
           TF_WORKSPACE: default
-          AWS_SECRETS_ROLE: ${{ secrets.AWS_GHA_ROLE }}
+          AWS_SECRETS_ROLE: ${{ secrets.AWS_GHA_ROLE_MGMT }}
           AWS_DEFAULT_REGION: eu-west-2
 
       - name: "Terraform Init"
@@ -68,17 +69,17 @@ jobs:
           set -e
           aws ssm terminate-session --session-id ${{ github.run_id }}-${{ github.run_number }}
 
-      - name: "Redact Logs PROD PR"
+      - name: "Redact Logs MGMT PR"
         if: steps.plan.conclusion == 'failure'
-        id: redact-logs-prod-pr
+        id: redact-logs-management-pr
         run: |
-              sed -i "s/$ACC_PROD/REDACTED/g" ${{ github.workspace }}/${{ github.run_id }}-${{ github.run_number }}.log
+              sed -i "s/$ACC_MGMT/REDACTED/g" ${{ github.workspace }}/${{ github.run_id }}-${{ github.run_number }}.log
         shell: bash
         env:
-          ACC_PROD: ${{ secrets.AWS_GHA_ACC_PROD }}
+          ACC_MGMT: ${{ secrets.AWS_GHA_ACC_MGMT }}
 
       - uses: actions/upload-artifact@v2
-        if: steps.redact-logs-prod-pr.conclusion == 'success'
+        if: steps.redact-logs-management-pr.conclusion == 'success'
         with:
-          name: prod-workflow-log
+          name: management-workflow-log
           path: ${{ github.workspace }}/${{ github.run_id }}-${{ github.run_number }}.log

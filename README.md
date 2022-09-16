@@ -1,5 +1,6 @@
-# burendo-repo-template-terraform
-This repo contains Makefile to fit the standard pattern. This repo is a base to create new Terraform repos, adding the githooks submodule, making the repo ready for use.  After cloning this repo, please run: make bootstrap
+# burendo-aws-org
+
+This repo holds the IaC to manage our AWS Organisation and accounts.
 
 ## Usage
 

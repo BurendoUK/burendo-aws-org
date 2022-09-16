@@ -1,8 +1,12 @@
 locals {
-  environment = terraform.workspace == "default" ? "burendo-prod" : terraform.workspace
-  account = {
-    "burendo-prod" = "{{terraform.aws_production_acc}}"
-  }
+  environment = terraform.workspace == "default" ? "burendo-mgmt" : terraform.workspace
+  account = { {% for key, value in accounts.items() %}
+      {{key}} = "{{value.number}}"{% endfor %}
+    }
+  
+  email = { {% for key, value in accounts.items() %}
+      {{key}} = "{{value.email}}"{% endfor %}
+    }
 
   tags = {
     Environment = local.environment
