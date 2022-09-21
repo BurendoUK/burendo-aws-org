@@ -1,3 +1,10 @@
+resource "aws_organizations_account" "connora_sandbox" {
+  name      = "ConnorASandbox"
+  email     = "connor.avery@burendo.com"
+  tags      = merge(local.tags, { Name = "ConnorASandbox" })
+  parent_id = aws_organizations_organizational_unit.infrastructure.id
+}
+
 resource "aws_organizations_account" "leec_sandbox" {
   name      = "LeeCSandbox"
   email     = "lee.clark78@burendo.com"
