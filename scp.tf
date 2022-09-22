@@ -16,3 +16,8 @@ resource "aws_organizations_policy_attachment" "management" {
   policy_id = local.organization_policy_full_access_id
   target_id = aws_organizations_account.burendo.id
 }
+
+resource "aws_organizations_policy_attachment" "sandboxes" {
+  policy_id = local.organization_policy_full_access_id
+  target_id = aws_organizations_organizational_unit.security.id
+}
