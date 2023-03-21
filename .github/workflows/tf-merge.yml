@@ -83,7 +83,7 @@ jobs:
           aws ssm terminate-session --session-id ${{ github.run_id }}-${{ github.run_number }}
 
       - name: "Redact Logs MGMT"
-        if: steps.plan.conclusion == 'failure'
+        if: ${{ always() }}
         id: redact-logs-management
         run: |
               sed -i "s/$ACC_MGMT/REDACTED/g" ${{ github.workspace }}/${{ github.run_id }}-${{ github.run_number }}.log
@@ -91,8 +91,10 @@ jobs:
         env:
           ACC_MGMT: ${{ secrets.AWS_GHA_ACC_MGMT }}
 
-      - uses: actions/upload-artifact@v2
-        if: steps.redact-logs-management.conclusion == 'success'
+      - name: "Upload log"
+        uses: actions/upload-artifact@v2
+        id: upload-log
+        if: ${{ failure() }}
         with:
           name: management-workflow-log
           path: ${{ github.workspace }}/${{ github.run_id }}-${{ github.run_number }}.log
