@@ -24,3 +24,7 @@ resource "aws_organizations_account" "burendo" {
   email = lookup(local.email, "burendo-mgmt")
   tags  = merge(local.tags, { Name = "Burendo" })
 }
+
+resource "aws_iam_account_alias" "alias" {
+  account_alias = "burendo-mgmt"
+}
