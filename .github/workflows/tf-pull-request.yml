@@ -79,7 +79,7 @@ jobs:
         env:
           ACC_MGMT: ${{ secrets.AWS_GHA_ACC_MGMT }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v4
         if: steps.redact-logs-management-pr.conclusion == 'success'
         with:
           name: management-workflow-log
