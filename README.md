@@ -40,3 +40,8 @@ The original use case for this setup is for the Fraser's Group account, where we
 store or manage IAM users with an external company's email addresses. Therefore, the client set up an IAM role with appropriate permissions and set up a trust relationship with an equivalent Burendo account for that client. Then this role can be assumed by members of the Burendo client account and we can restrict access to that account to Burendo engineers who are working on that client.
 
 These accounts are not designed to have client infrastructure deployed in them too.
+
+## POC accounts
+
+These accounts exists to allow Burendo to build POC solutions for clients or potential clients.
+The original use case for this setup is for the NHS Data Dashboard, where we needed stand-up a solution in our AWS accounts using the open source HSA solution. 
