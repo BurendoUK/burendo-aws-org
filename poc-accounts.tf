@@ -4,14 +4,14 @@
 # When the engagement concludes delete these aws account. 
 resource "aws_organizations_account" "nhs_data_dashboard_tooling" {
   name      = "nhs-data-dashboard-tooling"
-  email     = local.client_aws_email
+  email     = local.nhs_data_dashboard_tooling_aws_email
   tags      = merge(local.tags, { Name = "NHSDataDashboardTooling" })
   parent_id = aws_organizations_organizational_unit.clients.id
 }
 
 resource "aws_organizations_account" "nhs_data_dashboard_application" {
   name      = "nhs-data-dashboard-application"
-  email     = local.client_aws_email
+  email     = local.nhs_data_dashboard_application_aws_email
   tags      = merge(local.tags, { Name = "NHSDataDashboardApplication" })
   parent_id = aws_organizations_organizational_unit.clients.id
 }
