@@ -15,3 +15,19 @@ resource "aws_organizations_account" "nhs_data_dashboard_application" {
   tags      = merge(local.tags, { Name = "NHSDataDashboardApplication" })
   parent_id = aws_organizations_organizational_unit.clients.id
 }
+
+# The following accounts allow the creation of teh Safeshout solution.
+# When Safeshout are ready to self manage this transfer ownership of these accounts. 
+resource "aws_organizations_account" "safeshout_management" {
+  name      = "safeshout-management"
+  email     = local.safeshout_management_aws_email
+  tags      = merge(local.tags, { Name = "Safeshout" })
+  parent_id = aws_organizations_organizational_unit.safeshout.id
+}
+
+resource "aws_organizations_account" "safeshout_staging" {
+  name      = "safeshout-staging"
+  email     = local.safeshout_staging_aws_email
+  tags      = merge(local.tags, { Name = "Safeshout" })
+  parent_id = aws_organizations_organizational_unit.safeshout.id
+}
