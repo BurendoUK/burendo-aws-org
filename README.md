@@ -59,3 +59,5 @@ Mailboxes currently being used:
 - clientawsaccounts@burendo.com
 - nhs-data-dashboard-tooling-aws-account@burendo.com
 - nhs-data-dashboard-application-aws-account@burendo.com
+- safeshout-management-aws-account@burendo.com
+- safeshout-staging-aws-account@burendo.com
