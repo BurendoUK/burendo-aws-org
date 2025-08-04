@@ -31,3 +31,10 @@ resource "aws_organizations_account" "safeshout_staging" {
   tags      = merge(local.tags, { Name = "Safeshout" })
   parent_id = aws_organizations_organizational_unit.safeshout.id
 }
+
+resource "aws_organizations_account" "safeshout_development" {
+  name      = "safeshout-development"
+  email     = local.safeshout_development_aws_email
+  tags      = merge(local.tags, { Name = "Safeshout" })
+  parent_id = aws_organizations_organizational_unit.safeshout.id
+}

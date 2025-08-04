@@ -61,3 +61,4 @@ Mailboxes currently being used:
 - nhs-data-dashboard-application-aws-account@burendo.com
 - safeshout-management-aws-account@burendo.com
 - safeshout-staging-aws-account@burendo.com
+- safeshout-development-aws-account@burendo.com
