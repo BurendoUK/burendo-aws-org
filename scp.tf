@@ -31,3 +31,8 @@ resource "aws_organizations_policy_attachment" "safeshout" {
   policy_id = local.organization_policy_full_access_id
   target_id = aws_organizations_organizational_unit.safeshout.id
 }
+
+resource "aws_organizations_policy_attachment" "barnsleyfc" {
+  policy_id = local.organization_policy_full_access_id
+  target_id = aws_organizations_organizational_unit.barnsleyfc.id
+}
