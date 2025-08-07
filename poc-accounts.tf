@@ -38,3 +38,17 @@ resource "aws_organizations_account" "safeshout_development" {
   tags      = merge(local.tags, { Name = "Safeshout" })
   parent_id = aws_organizations_organizational_unit.safeshout.id
 }
+
+resource "aws_organizations_account" "barnsleyfc_test" {
+  name      = "barnsleyfc-test"
+  email     = local.barnsleyfc_test_aws_email
+  tags      = merge(local.tags, { Name = "BarnsleyFC" })
+  parent_id = aws_organizations_organizational_unit.barnsleyfc.id
+}
+
+resource "aws_organizations_account" "barnsleyfc_prod" {
+  name      = "barnsleyfc-prod"
+  email     = local.barnsleyfc_prod_aws_email
+  tags      = merge(local.tags, { Name = "BarnsleyFC" })
+  parent_id = aws_organizations_organizational_unit.barnsleyfc.id
+}

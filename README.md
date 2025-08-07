@@ -62,3 +62,5 @@ Mailboxes currently being used:
 - safeshout-management-aws-account@burendo.com
 - safeshout-staging-aws-account@burendo.com
 - safeshout-development-aws-account@burendo.com
+- barnsleyfc-test-aws-account@burendo.com
+- barnsleyfc-prod-aws-account@burendo.com

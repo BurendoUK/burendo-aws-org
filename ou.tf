@@ -22,3 +22,8 @@ resource "aws_organizations_organizational_unit" "safeshout" {
   name      = "Safeshout"
   parent_id = aws_organizations_organizational_unit.clients.id
 }
+
+resource "aws_organizations_organizational_unit" "barnsleyfc" {
+  name      = "BarnsleyFC"
+  parent_id = aws_organizations_organizational_unit.clients.id
+}
