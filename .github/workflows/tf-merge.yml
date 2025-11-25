@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: ${{ secrets.TERRAFORM_VERSION }}
+          terraform_version: 1.14.0
       - uses: actions/setup-python@v2
         with:
           python-version: "3.x"
@@ -74,7 +74,7 @@ jobs:
           TF_WORKSPACE: default
           TF_INPUT: false
           AWS_DEFAULT_REGION: eu-west-2
-      
+
       - name: "Terminate Session"
         if: ${{ always() }}
         id: terminate-session
@@ -86,7 +86,7 @@ jobs:
         if: ${{ always() }}
         id: redact-logs-management
         run: |
-              sed -i "s/$ACC_MGMT/REDACTED/g" ${{ github.workspace }}/${{ github.run_id }}-${{ github.run_number }}.log
+          sed -i "s/$ACC_MGMT/REDACTED/g" ${{ github.workspace }}/${{ github.run_id }}-${{ github.run_number }}.log
         shell: bash
         env:
           ACC_MGMT: ${{ secrets.AWS_GHA_ACC_MGMT }}
