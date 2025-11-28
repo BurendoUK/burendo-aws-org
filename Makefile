@@ -1,6 +1,6 @@
 SHELL:=bash
 
-aws_profile=default
+aws_profile=burendo
 aws_region=eu-west-2
 
 default: help
