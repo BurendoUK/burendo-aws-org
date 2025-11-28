@@ -9,6 +9,12 @@ module "iam-identity-center" {
     }
   }
 
+  existing_sso_groups = {
+    SG_AWS_Admins : {
+      group_name = "SG-AWS-Admins"
+    }
+  }
+
   existing_sso_users = {
     engineering_burendo_com : {
       group_membership = ["Admin_BreakGlass"]
@@ -21,6 +27,11 @@ module "iam-identity-center" {
       description          = "Provides AWS full access permissions."
       session_duration     = "PT4H",
       aws_managed_policies = ["arn:aws:iam::aws:policy/AdministratorAccess"]
+    },
+    ReadOnlyAccess = {
+      description          = "Provides AWS read only access permissions."
+      session_duration     = "PT4H",
+      aws_managed_policies = ["arn:aws:iam::aws:policy/ReadOnlyAccess"]
     }
   }
 
@@ -33,6 +44,14 @@ module "iam-identity-center" {
       account_ids = [
         aws_organizations_account.burendo.id
       ]
+    }
+
+    SG_AWS_Admins : {
+      principal_name  = "SG_AWS_Admins"
+      principal_type  = "GROUP"
+      principal_idp   = "EXTERNAL"
+      permission_sets = ["AdministratorAccess", "ReadOnlyAccess"]
+      account_ids     = aws_organizations_organization.burendo.accounts[*].id
     }
   }
 }
