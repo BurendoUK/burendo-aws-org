@@ -16,6 +16,12 @@ module "iam-identity-center" {
     SG_AWS_Billing : {
       group_name = "SG-AWS-Billing"
     }
+    SG_AWS_BurendoLabs_NonProd : {
+      group_name = "SG-AWS-BurendoLabs-NonProd"
+    }
+    SG_AWS_BurendoLabs_Prod : {
+      group_name = "SG-AWS-BurendoLabs-Prod"
+    }
   }
 
   existing_sso_users = {
@@ -35,6 +41,11 @@ module "iam-identity-center" {
       description          = "Provides AWS billing job function access permissions."
       session_duration     = "PT4H",
       aws_managed_policies = ["arn:aws:iam::aws:policy/job-function/Billing"]
+    },
+    PowerUserAccess = {
+      description          = "Provides AWS power user access permissions."
+      session_duration     = "PT4H",
+      aws_managed_policies = ["arn:aws:iam::aws:policy/PowerUserAccess"]
     },
     ReadOnlyAccess = {
       description          = "Provides AWS read only access permissions."
@@ -59,7 +70,7 @@ module "iam-identity-center" {
       principal_type  = "GROUP"
       principal_idp   = "EXTERNAL"
       permission_sets = ["AdministratorAccess", "ReadOnlyAccess"]
-      account_ids     = aws_organizations_organization.burendo.accounts[*].id
+      account_ids     = local.account_ids.all
     }
 
     SG_AWS_Billing : {
@@ -67,7 +78,23 @@ module "iam-identity-center" {
       principal_type  = "GROUP"
       principal_idp   = "EXTERNAL"
       permission_sets = ["Billing"]
-      account_ids     = aws_organizations_organization.burendo.accounts[*].id
+      account_ids     = local.account_ids.all
+    }
+
+    SG_AWS_BurendoLabs_NonProd : {
+      principal_name  = "SG_AWS_BurendoLabs_NonProd"
+      principal_type  = "GROUP"
+      principal_idp   = "EXTERNAL"
+      permission_sets = ["PowerUserAccess", "ReadOnlyAccess"]
+      account_ids     = local.account_ids.burendo_labs.non_prod
+    }
+
+    SG_AWS_BurendoLabs_Prod : {
+      principal_name  = "SG_AWS_BurendoLabs_Prod"
+      principal_type  = "GROUP"
+      principal_idp   = "EXTERNAL"
+      permission_sets = ["PowerUserAccess", "ReadOnlyAccess"]
+      account_ids     = local.account_ids.burendo_labs.prod
     }
   }
 }
