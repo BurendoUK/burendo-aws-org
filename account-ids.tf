@@ -11,5 +11,14 @@ locals {
         aws_organizations_account.burendo_labs_production.id
       ]
     }
+
+    barnsleyfc = {
+      non_prod = [
+        aws_organizations_account.barnsleyfc_test.id
+      ]
+      prod = [
+        aws_organizations_account.barnsleyfc_prod.id
+      ]
+    }
   }
 }

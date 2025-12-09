@@ -22,6 +22,12 @@ module "iam-identity-center" {
     SG_AWS_BurendoLabs_Prod : {
       group_name = "SG-AWS-BurendoLabs-Prod"
     }
+    SG_AWS_BarnsleyFC_NonProd : {
+      group_name = "SG-AWS-BarnsleyFC-NonProd"
+    }
+    SG_AWS_BarnsleyFC_Prod : {
+      group_name = "SG-AWS-BarnsleyFC-Prod"
+    }
   }
 
   existing_sso_users = {
@@ -95,6 +101,22 @@ module "iam-identity-center" {
       principal_idp   = "EXTERNAL"
       permission_sets = ["PowerUserAccess", "ReadOnlyAccess"]
       account_ids     = local.account_ids.burendo_labs.prod
+    }
+
+    SG_AWS_BarnsleyFC_NonProd : {
+      principal_name  = "SG_AWS_BarnsleyFC_NonProd"
+      principal_type  = "GROUP"
+      principal_idp   = "EXTERNAL"
+      permission_sets = ["PowerUserAccess", "ReadOnlyAccess"]
+      account_ids     = local.account_ids.barnsleyfc.non_prod
+    }
+
+    SG_AWS_BarnsleyFC_Prod : {
+      principal_name  = "SG_AWS_BarnsleyFC_Prod"
+      principal_type  = "GROUP"
+      principal_idp   = "EXTERNAL"
+      permission_sets = ["PowerUserAccess", "ReadOnlyAccess"]
+      account_ids     = local.account_ids.barnsleyfc.prod
     }
   }
 }
